@@ -1,8 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: Request, res: Response) {
   // @ts-ignore
   const body = await req.json();
   const { username, password } = body;
@@ -23,7 +22,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: Request, res: Response) {
   const encryptedSessionData: any = cookies().get("session");
   if (!encryptedSessionData) {
     return Response.json({ message: "No session found"}, { status: 401});
